@@ -11,8 +11,14 @@
 body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
 ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--blue);border-radius:99px}
 .app{display:flex;min-height:100vh}
+
+/* HAMBURGER */
+.hamburger{display:none;position:fixed;top:1rem;left:1rem;z-index:200;width:42px;height:42px;background:var(--blue);border:none;border-radius:12px;font-size:1.3rem;cursor:pointer;color:#fff;box-shadow:var(--shadow);align-items:center;justify-content:center}
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:49;backdrop-filter:blur(2px)}
+.sidebar-overlay.active{display:block}
+
 /* SIDEBAR */
-.sidebar{width:240px;background:var(--white);border-right:1px solid var(--border);display:flex;flex-direction:column;padding:1.5rem 1rem;position:fixed;top:0;left:0;height:100vh;z-index:50;box-shadow:4px 0 20px rgba(0,0,0,.04)}
+.sidebar{width:240px;background:var(--white);border-right:1px solid var(--border);display:flex;flex-direction:column;padding:1.5rem 1rem;position:fixed;top:0;left:0;height:100vh;z-index:50;box-shadow:4px 0 20px rgba(0,0,0,.04);transition:transform .3s ease}
 .sidebar-logo{display:flex;align-items:center;gap:.6rem;font-family:'Fredoka One',cursive;font-size:1.5rem;color:var(--blue);margin-bottom:2rem;padding:0 .5rem}
 .logo-icon{width:38px;height:38px;background:linear-gradient(135deg,var(--blue),var(--purple));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem}
 .sidebar-section{font-size:.65rem;font-weight:800;color:var(--muted);letter-spacing:2px;text-transform:uppercase;padding:0 .5rem;margin-bottom:.5rem;margin-top:1rem}
@@ -25,8 +31,10 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 .user-card .user-name{font-weight:800;font-size:.95rem}
 .user-card .user-role{font-size:.75rem;opacity:.8;margin-top:1px}
 .user-avatar{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;font-size:1.1rem;margin-bottom:.6rem}
+
 /* MAIN */
 .main{margin-left:240px;flex:1;padding:2rem;min-height:100vh}
+
 /* TOPBAR */
 .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem}
 .topbar-greeting h1{font-family:'Fredoka One',cursive;font-size:1.8rem;color:var(--text)}
@@ -37,10 +45,12 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 .search-box input::placeholder{color:var(--muted)}
 .notif-btn{width:40px;height:40px;border-radius:12px;background:var(--white);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1.1rem;box-shadow:var(--shadow);position:relative}
 .notif-dot{position:absolute;top:8px;right:8px;width:8px;height:8px;background:var(--red);border-radius:50%;border:2px solid #fff}
+
 /* PAGES */
 .page{display:none;animation:fadeIn .3s ease}
 .page.active{display:block}
 @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
 /* HERO */
 .hero-banner{background:linear-gradient(135deg,var(--blue) 0%,var(--purple) 100%);border-radius:var(--radius);padding:2rem 2.5rem;color:#fff;display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem;position:relative;overflow:hidden}
 .hero-banner::before{content:'';position:absolute;right:-20px;top:-20px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.08)}
@@ -50,17 +60,20 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 .hero-cta{background:#fff;color:var(--blue);border:none;border-radius:99px;padding:.6rem 1.5rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:.9rem;cursor:pointer;margin-top:1rem;display:inline-block;transition:transform .2s,box-shadow .2s;box-shadow:0 4px 16px rgba(0,0,0,.15)}
 .hero-cta:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.2)}
 .hero-emoji{font-size:5rem;position:relative;z-index:1}
+
 /* STATS */
 .stats-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem}
 .stat-card{background:var(--white);border-radius:var(--radius);padding:1.2rem 1.4rem;box-shadow:var(--shadow);display:flex;align-items:center;gap:1rem;border:1px solid var(--border)}
 .stat-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
 .stat-num{font-family:'Fredoka One',cursive;font-size:1.6rem;line-height:1}
 .stat-label{color:var(--muted);font-size:.75rem;font-weight:700;margin-top:2px}
+
 /* SECTION HEADER */
 .sec-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
 .sec-title{font-family:'Fredoka One',cursive;font-size:1.2rem;color:var(--text)}
 .sec-link{color:var(--blue);font-size:.85rem;font-weight:700;cursor:pointer}
 .sec-link:hover{text-decoration:underline}
+
 /* SUBJECTS */
 .subject-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:1rem;margin-bottom:2rem}
 .subject-card{border-radius:var(--radius);padding:1.3rem 1rem;text-align:center;cursor:pointer;transition:transform .2s,box-shadow .2s}
@@ -68,6 +81,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 .subject-card .s-icon{font-size:2.2rem;margin-bottom:.6rem;display:block}
 .subject-card .s-name{font-weight:800;font-size:.9rem}
 .subject-card .s-count{font-size:.75rem;opacity:.7;margin-top:2px}
+
 /* LESSON CARDS */
 .lesson-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;margin-bottom:2rem}
 .lesson-card{background:var(--white);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--border);cursor:pointer;transition:transform .2s,box-shadow .2s}
@@ -82,15 +96,11 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 .progress-bar{height:6px;background:var(--border);border-radius:99px;overflow:hidden}
 .progress-fill{height:100%;border-radius:99px}
 .progress-label{display:flex;justify-content:space-between;font-size:.7rem;color:var(--muted);margin-top:3px;font-weight:700}
+
 /* VIDEO */
 .video-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem}
 .video-card{background:var(--white);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--border);cursor:pointer;transition:transform .2s,box-shadow .2s}
 .video-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
-/* =============================================
-   VIDEO THUMB — PERBAIKAN UTAMA
-   Sebelumnya pakai iframe langsung (tidak bisa),
-   sekarang pakai thumbnail image + klik buka modal
-   ============================================= */
 .video-thumb{position:relative;height:160px;background:#1e293b;overflow:hidden;cursor:pointer}
 .video-thumb img{width:100%;height:100%;object-fit:cover;display:block}
 .play-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.35);transition:background .2s}
@@ -100,6 +110,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 .video-info{padding:1rem}
 .video-title{font-weight:800;font-size:.9rem;line-height:1.4;margin-bottom:.5rem}
 .video-meta{color:var(--muted);font-size:.78rem;display:flex;gap:.8rem;align-items:center}
+
 /* VIDEO MODAL */
 .video-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:250;display:none;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(6px)}
 .video-modal-overlay.active{display:flex}
@@ -110,6 +121,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 .video-modal-close:hover{background:rgba(255,255,255,.3)}
 .video-modal-frame{position:relative;padding-bottom:56.25%;height:0}
 .video-modal-frame iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
+
 /* KUIS */
 .kuis-intro{background:linear-gradient(135deg,var(--yellow),var(--orange));border-radius:var(--radius);padding:1.5rem 2rem;color:#fff;margin-bottom:2rem;display:flex;align-items:center;justify-content:space-between}
 .kuis-intro h2{font-family:'Fredoka One',cursive;font-size:1.4rem;margin-bottom:.3rem}
@@ -122,6 +134,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 .kuis-meta{color:var(--muted);font-size:.78rem}
 .kuis-start{margin-top:1rem;background:var(--blue);color:#fff;border:none;padding:.5rem 1.2rem;border-radius:99px;font-family:'Nunito',sans-serif;font-weight:800;font-size:.8rem;cursor:pointer;transition:opacity .2s}
 .kuis-start:hover{opacity:.85}
+
 /* QUIZ MODAL */
 .quiz-overlay{position:fixed;inset:0;background:rgba(15,23,42,.7);z-index:200;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px);padding:1rem}
 .quiz-overlay.active{display:flex}
@@ -153,6 +166,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 .quiz-result .result-score{font-family:'Fredoka One',cursive;font-size:3rem;color:var(--blue);margin:1rem 0}
 .quiz-close-btn{background:var(--blue);color:#fff;border:none;border-radius:12px;padding:.8rem 2rem;font-family:'Nunito',sans-serif;font-weight:800;font-size:1rem;cursor:pointer;margin-top:1rem;transition:opacity .2s}
 .quiz-close-btn:hover{opacity:.85}
+
 /* PROGRESS */
 .progress-header-card{background:linear-gradient(135deg,var(--green),#059669);border-radius:var(--radius);padding:1.5rem 2rem;color:#fff;margin-bottom:2rem;display:flex;align-items:center;gap:2rem}
 .big-circle{width:90px;height:90px;border-radius:50%;background:rgba(255,255,255,.2);border:4px solid rgba(255,255,255,.5);display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0}
@@ -168,6 +182,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 .ps-bar{height:8px;background:var(--border);border-radius:99px;overflow:hidden}
 .ps-fill{height:100%;border-radius:99px}
 .ps-pct{font-family:'Fredoka One',cursive;font-size:1rem;flex-shrink:0}
+
 /* MATERI */
 .materi-filter{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.5rem}
 .filter-btn{padding:.4rem 1rem;border-radius:99px;border:2px solid var(--border);background:var(--white);font-family:'Nunito',sans-serif;font-weight:700;font-size:.8rem;cursor:pointer;transition:all .2s}
@@ -181,6 +196,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 .materi-sub{color:var(--muted);font-size:.78rem}
 .materi-tag{padding:3px 10px;border-radius:99px;font-size:.7rem;font-weight:800;flex-shrink:0}
 .materi-arrow{color:var(--muted);font-size:1rem}
+
 /* AUTH */
 .auth-overlay{position:fixed;inset:0;background:rgba(15,23,42,.7);z-index:300;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px)}
 .auth-box{background:var(--white);border-radius:24px;padding:2.5rem 2rem;width:100%;max-width:400px;box-shadow:var(--shadow-lg);animation:popIn .3s cubic-bezier(.34,1.56,.64,1)}
@@ -202,9 +218,11 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 .auth-msg.success{background:var(--green-light);color:#166534;display:block}
 .guest-btn{width:100%;padding:.7rem;background:var(--bg);color:var(--muted);border:2px solid var(--border);border-radius:12px;font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;cursor:pointer;margin-top:.7rem;transition:all .2s}
 .guest-btn:hover{border-color:var(--blue);color:var(--blue)}
+
 /* TOAST */
 .toast{position:fixed;bottom:2rem;right:2rem;background:var(--text);color:#fff;padding:.8rem 1.4rem;border-radius:14px;font-weight:700;font-size:.9rem;z-index:999;transform:translateY(100px);opacity:0;transition:all .3s;box-shadow:var(--shadow-lg)}
 .toast.show{transform:translateY(0);opacity:1}
+
 /* INFO ADMIN */
 .admin-hero{background:linear-gradient(135deg,#0ea5e9,#6366f1);border-radius:var(--radius);padding:2rem 2.5rem;color:#fff;margin-bottom:2rem;display:flex;align-items:center;gap:1.5rem;position:relative;overflow:hidden}
 .admin-hero::before{content:'';position:absolute;right:-30px;top:-30px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.08)}
@@ -212,7 +230,6 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 .admin-hero h2{font-family:'Fredoka One',cursive;font-size:1.5rem;margin-bottom:.3rem}
 .admin-hero p{opacity:.85;font-size:.85rem}
 .admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem}
-@media(max-width:700px){.admin-grid{grid-template-columns:1fr}}
 .admin-card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--border);overflow:hidden}
 .admin-card-header{padding:1rem 1.2rem;display:flex;align-items:center;gap:.7rem;border-bottom:1px solid var(--border)}
 .admin-card-header .ch-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
@@ -233,11 +250,35 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 .jam-item{background:var(--bg);border-radius:10px;padding:.6rem .8rem}
 .jam-item .j-day{font-size:.72rem;color:var(--muted);font-weight:700}
 .jam-item .j-time{font-size:.82rem;font-weight:800;color:var(--text)}
-@media(max-width:900px){.sidebar{transform:translateX(-100%)}.main{margin-left:0;padding:1rem}.stats-strip{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:580px){.hero-emoji{display:none}.search-box input{width:100px}}
+
+/* =============================================
+   RESPONSIVE — PERBAIKAN UTAMA
+   ============================================= */
+@media(max-width:900px){
+  /* Sidebar tersembunyi default, muncul saat .open */
+  .sidebar{transform:translateX(-100%)}
+  .sidebar.open{transform:translateX(0)}
+  /* Tombol hamburger muncul */
+  .hamburger{display:flex}
+  /* Main tidak perlu margin kiri */
+  .main{margin-left:0;padding:1rem;padding-top:4.5rem}
+  .stats-strip{grid-template-columns:repeat(2,1fr)}
+  .admin-grid{grid-template-columns:1fr}
+}
+@media(max-width:580px){
+  .hero-emoji{display:none}
+  .search-box input{width:100px}
+  .stats-strip{grid-template-columns:repeat(2,1fr)}
+}
 </style>
 </head>
 <body>
+
+<!-- TOMBOL HAMBURGER (muncul di HP) -->
+<button class="hamburger" id="hamburgerBtn" onclick="toggleSidebar()">☰</button>
+
+<!-- OVERLAY gelap saat sidebar terbuka di HP -->
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
 
 <!-- AUTH -->
 <div class="auth-overlay" id="authOverlay">
@@ -270,7 +311,7 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
   <div class="quiz-box" id="quizBox"></div>
 </div>
 
-<!-- VIDEO MODAL (BARU) -->
+<!-- VIDEO MODAL -->
 <div class="video-modal-overlay" id="videoModalOverlay">
   <div class="video-modal-box">
     <div class="video-modal-header">
@@ -429,26 +470,18 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
       </div>
     </div>
     <div class="admin-grid">
-      <!-- MAPS -->
       <div class="admin-card">
         <div class="admin-card-header">
           <div class="ch-icon" style="background:#e8f0fe">📍</div>
           <div><div class="ch-title">Lokasi Kami</div><div class="ch-sub">Kunjungi langsung atau cek rute di Maps</div></div>
         </div>
-        <iframe
-          class="maps-frame"
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3953.4804775506264!2d110.36949231476916!3d-7.795607794381563!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a5b8b8b8b8b8b%3A0x0!2zN8KwNDcnNDQuMiJTIDExMMKwMjInMTAuMiJF!5e0!3m2!1sid!2sid!4v1717660000000"
-          allowfullscreen
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
+        <iframe class="maps-frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3953.4804775506264!2d110.36949231476916!3d-7.795607794381563!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a5b8b8b8b8b8b%3A0x0!2zN8KwNDcnNDQuMiJTIDExMMKwMjInMTAuMiJF!5e0!3m2!1sid!2sid!4v1717660000000" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         <div style="padding:.8rem 1.2rem">
           <a href="https://maps.app.goo.gl/TiRDapiPhsJzY64V7" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:.6rem;padding:.75rem;background:var(--blue-light);color:var(--blue);border-radius:12px;font-weight:800;font-size:.85rem;text-decoration:none;transition:all .2s" onmouseover="this.style.background='var(--blue)';this.style.color='#fff'" onmouseout="this.style.background='var(--blue-light)';this.style.color='var(--blue)'">
             🗺️ Buka di Google Maps
           </a>
         </div>
       </div>
-      <!-- KONTAK -->
       <div class="admin-card">
         <div class="admin-card-header">
           <div class="ch-icon" style="background:#dcfce7">📞</div>
@@ -457,18 +490,12 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
         <div class="kontak-body">
           <a class="kontak-item" href="https://wa.me/6281328282930" target="_blank">
             <div class="ki-icon" style="background:#dcfce7">💬</div>
-            <div>
-              <div class="ki-label">WhatsApp</div>
-              <div class="ki-val">+62 813-2828-2930</div>
-            </div>
+            <div><div class="ki-label">WhatsApp</div><div class="ki-val">+62 813-2828-2930</div></div>
             <span class="ki-arrow">›</span>
           </a>
           <div class="kontak-item" onclick="navigator.clipboard.writeText('+6281328282930');showToast('Nomor WA disalin! 📋')">
             <div class="ki-icon" style="background:#fef3c7">📋</div>
-            <div>
-              <div class="ki-label">Salin Nomor</div>
-              <div class="ki-val">Ketuk untuk menyalin</div>
-            </div>
+            <div><div class="ki-label">Salin Nomor</div><div class="ki-val">Ketuk untuk menyalin</div></div>
             <span class="ki-arrow">›</span>
           </div>
           <div style="background:var(--bg);border-radius:14px;padding:1rem;margin-bottom:.8rem">
@@ -488,12 +515,27 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
     </div>
   </div>
 
-</div>
+</div><!-- end .main -->
 
 <script>
 const API='https://herisusanta.my.id/javalogin/api/';
 let quizState={};
 
+/* =============================================
+   HAMBURGER / SIDEBAR TOGGLE
+   ============================================= */
+function toggleSidebar(){
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebarOverlay').classList.toggle('active');
+}
+function closeSidebar(){
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('active');
+}
+
+/* =============================================
+   DATA
+   ============================================= */
 const materiData=[
   {mapel:'matematika',icon:'🔢',bg:'#e8f0fe',color:'var(--blue)',title:'Persamaan Linear Satu Variabel',sub:'Matematika • Aljabar',tag:'Wajib'},
   {mapel:'matematika',icon:'📐',bg:'#e8f0fe',color:'var(--blue)',title:'Pythagoras dan Segitiga',sub:'Matematika • Geometri',tag:'Wajib'},
@@ -562,42 +604,32 @@ const progressData=[
 ];
 
 /* =============================================
-   FUNGSI UTAMA PERBAIKAN VIDEO
-   Ekstrak YouTube ID → thumbnail & embed URL
+   YOUTUBE HELPERS
    ============================================= */
-function getYouTubeId(url) {
-  // Tangkap tepat 11 karakter ID, abaikan parameter ?si= dll
-  const regex = /(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-  const match = url ? url.match(regex) : null;
-  return match ? match[1] : null;
+function getYouTubeId(url){
+  const regex=/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+  const match=url?url.match(regex):null;
+  return match?match[1]:null;
 }
-
-function getThumbnailUrl(ytUrl) {
-  const id = getYouTubeId(ytUrl);
-  return id ? `https://img.youtube.com/vi/${id}/hqdefault.jpg` : '';
+function getThumbnailUrl(ytUrl){
+  const id=getYouTubeId(ytUrl);
+  return id?`https://img.youtube.com/vi/${id}/hqdefault.jpg`:'';
 }
-
-function getEmbedUrl(ytUrl) {
-  const id = getYouTubeId(ytUrl);
-  return id ? `https://www.youtube.com/embed/${id}?autoplay=1` : '';
+function getEmbedUrl(ytUrl){
+  const id=getYouTubeId(ytUrl);
+  return id?`https://www.youtube.com/embed/${id}?autoplay=1`:'';
 }
-
-/* Buka video di modal */
-function openVideoModal(ytUrl, title) {
-  document.getElementById('videoModalTitle').textContent = title;
-  document.getElementById('videoModalIframe').src = getEmbedUrl(ytUrl);
+function openVideoModal(ytUrl,title){
+  document.getElementById('videoModalTitle').textContent=title;
+  document.getElementById('videoModalIframe').src=getEmbedUrl(ytUrl);
   document.getElementById('videoModalOverlay').classList.add('active');
 }
-
-/* Tutup modal & hentikan video */
-function closeVideoModal() {
+function closeVideoModal(){
   document.getElementById('videoModalOverlay').classList.remove('active');
-  document.getElementById('videoModalIframe').src = ''; // stop video
+  document.getElementById('videoModalIframe').src='';
 }
-
-// Tutup modal kalau klik di luar box
-document.getElementById('videoModalOverlay').addEventListener('click', function(e){
-  if(e.target === this) closeVideoModal();
+document.getElementById('videoModalOverlay').addEventListener('click',function(e){
+  if(e.target===this)closeVideoModal();
 });
 
 /* =============================================
@@ -616,14 +648,12 @@ function renderMateri(filter='semua'){
 
 function renderVideo(){
   document.getElementById('videoGrid').innerHTML=videoData.map(v=>{
-    const thumb = getThumbnailUrl(v.yt);
+    const thumb=getThumbnailUrl(v.yt);
     return `
-    <div class="video-card" onclick="openVideoModal('${v.yt}', '${v.title.replace(/'/g,"\\'")}')">
+    <div class="video-card" onclick="openVideoModal('${v.yt}','${v.title.replace(/'/g,"\\'")}')">
       <div class="video-thumb">
         <img src="${thumb}" alt="${v.title}" onerror="this.style.display='none';this.parentElement.style.background='#1e293b'"/>
-        <div class="play-overlay">
-          <div class="play-btn">▶</div>
-        </div>
+        <div class="play-overlay"><div class="play-btn">▶</div></div>
       </div>
       <div class="video-info">
         <div style="color:${v.color};font-size:.7rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">${v.mapel}</div>
@@ -654,7 +684,11 @@ function renderProgress(){
     </div>`).join('');
 }
 
+/* =============================================
+   NAVIGASI HALAMAN
+   ============================================= */
 function showPage(name,navEl){
+  closeSidebar(); /* tutup sidebar di HP setelah pilih menu */
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('page-'+name).classList.add('active');
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
@@ -680,7 +714,6 @@ function startKuis(idx){
   renderQuestion();
   document.getElementById('quizOverlay').classList.add('active');
 }
-
 function renderQuestion(){
   const{kuis,q,score}=quizState;
   const total=kuis.questions.length;
@@ -697,7 +730,6 @@ function renderQuestion(){
     <div class="quiz-feedback" id="qFeedback"></div>
     <button class="quiz-next" id="qNext" onclick="nextQ()">${q+1<total?'Soal Berikutnya →':'Lihat Hasil 🏆'}</button>`;
 }
-
 function answerQ(idx){
   if(quizState.answered)return;
   quizState.answered=true;
@@ -714,9 +746,7 @@ function answerQ(idx){
   }
   document.getElementById('qNext').classList.add('show');
 }
-
 function nextQ(){quizState.q++;quizState.answered=false;renderQuestion();}
-
 function showResult(){
   const{score,kuis}=quizState;
   const total=kuis.questions.length;
@@ -744,7 +774,6 @@ function switchTab(tab){
   document.getElementById('form-login').classList.toggle('active',tab==='login');
   document.getElementById('form-register').classList.toggle('active',tab==='register');
 }
-
 function showMsg(id,msg,type){const el=document.getElementById(id);el.textContent=msg;el.className='auth-msg '+type;}
 
 async function doLogin(){
@@ -788,14 +817,12 @@ async function doRegister(){
 }
 
 function enterAsGuest(){enterApp('Tamu');}
-
 function enterApp(name){
   document.getElementById('authOverlay').style.display='none';
   document.getElementById('sidebarName').textContent=name;
   document.getElementById('greetText').textContent='Halo, '+name+'! 👋';
   showToast('Selamat datang, '+name+'! 🎉');
 }
-
 function doLogout(){
   document.getElementById('authOverlay').style.display='flex';
   document.getElementById('l-user').value='';
@@ -803,7 +830,6 @@ function doLogout(){
   document.getElementById('l-msg').className='auth-msg';
   showToast('Sampai jumpa! 👋');
 }
-
 function showToast(msg){
   const t=document.getElementById('toast');
   t.textContent=msg;t.classList.add('show');
