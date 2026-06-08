@@ -197,6 +197,28 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 .materi-tag{padding:3px 10px;border-radius:99px;font-size:.7rem;font-weight:800;flex-shrink:0}
 .materi-arrow{color:var(--muted);font-size:1rem}
 
+/* AUTH */
+.auth-overlay{position:fixed;inset:0;background:rgba(15,23,42,.7);z-index:300;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px)}
+.auth-box{background:var(--white);border-radius:24px;padding:2.5rem 2rem;width:100%;max-width:400px;box-shadow:var(--shadow-lg);animation:popIn .3s cubic-bezier(.34,1.56,.64,1)}
+.auth-logo{text-align:center;font-family:'Fredoka One',cursive;font-size:1.8rem;color:var(--blue);margin-bottom:.2rem}
+.auth-sub{text-align:center;color:var(--muted);font-size:.85rem;margin-bottom:1.8rem}
+.auth-tabs{display:flex;background:var(--bg);border-radius:12px;padding:4px;margin-bottom:1.5rem}
+.auth-tab{flex:1;padding:.5rem;border-radius:10px;border:none;background:transparent;font-family:'Nunito',sans-serif;font-weight:800;font-size:.9rem;cursor:pointer;color:var(--muted);transition:all .2s}
+.auth-tab.active{background:var(--white);color:var(--blue);box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.auth-form{display:none}
+.auth-form.active{display:block}
+.auth-group{margin-bottom:1rem}
+.auth-group label{display:block;font-size:.8rem;font-weight:800;color:var(--muted);margin-bottom:.4rem;letter-spacing:.5px;text-transform:uppercase}
+.auth-group input{width:100%;padding:.8rem 1rem;border-radius:12px;border:2px solid var(--border);font-family:'Nunito',sans-serif;font-size:.95rem;color:var(--text);background:var(--bg);transition:border-color .2s;outline:none}
+.auth-group input:focus{border-color:var(--blue);background:#fff}
+.auth-btn{width:100%;padding:.9rem;background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;border:none;border-radius:12px;font-family:'Nunito',sans-serif;font-weight:800;font-size:1rem;cursor:pointer;margin-top:.5rem;transition:transform .2s,box-shadow .2s;box-shadow:0 4px 16px rgba(79,142,247,.3)}
+.auth-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(79,142,247,.4)}
+.auth-msg{margin-top:.8rem;padding:.6rem 1rem;border-radius:10px;font-size:.85rem;font-weight:700;display:none}
+.auth-msg.error{background:#fee2e2;color:#991b1b;display:block}
+.auth-msg.success{background:var(--green-light);color:#166534;display:block}
+.guest-btn{width:100%;padding:.7rem;background:var(--bg);color:var(--muted);border:2px solid var(--border);border-radius:12px;font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;cursor:pointer;margin-top:.7rem;transition:all .2s}
+.guest-btn:hover{border-color:var(--blue);color:var(--blue)}
+
 /* TOAST */
 .toast{position:fixed;bottom:2rem;right:2rem;background:var(--text);color:#fff;padding:.8rem 1.4rem;border-radius:14px;font-weight:700;font-size:.9rem;z-index:999;transform:translateY(100px);opacity:0;transition:all .3s;box-shadow:var(--shadow-lg)}
 .toast.show{transform:translateY(0);opacity:1}
@@ -229,11 +251,16 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 .jam-item .j-day{font-size:.72rem;color:var(--muted);font-weight:700}
 .jam-item .j-time{font-size:.82rem;font-weight:800;color:var(--text)}
 
-/* RESPONSIVE */
+/* =============================================
+   RESPONSIVE — PERBAIKAN UTAMA
+   ============================================= */
 @media(max-width:900px){
+  /* Sidebar tersembunyi default, muncul saat .open */
   .sidebar{transform:translateX(-100%)}
   .sidebar.open{transform:translateX(0)}
+  /* Tombol hamburger muncul */
   .hamburger{display:flex}
+  /* Main tidak perlu margin kiri */
   .main{margin-left:0;padding:1rem;padding-top:4.5rem}
   .stats-strip{grid-template-columns:repeat(2,1fr)}
   .admin-grid{grid-template-columns:1fr}
@@ -247,11 +274,37 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 </head>
 <body>
 
-<!-- HAMBURGER -->
+<!-- TOMBOL HAMBURGER (muncul di HP) -->
 <button class="hamburger" id="hamburgerBtn" onclick="toggleSidebar()">☰</button>
 
-<!-- OVERLAY sidebar mobile -->
+<!-- OVERLAY gelap saat sidebar terbuka di HP -->
 <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+<!-- AUTH -->
+<div class="auth-overlay" id="authOverlay">
+  <div class="auth-box">
+    <div class="auth-logo">🎓 BelajarYuk!</div>
+    <p class="auth-sub">Platform belajar seru untuk semua mapel</p>
+    <div class="auth-tabs">
+      <button class="auth-tab active" onclick="switchTab('login')">Masuk</button>
+      <button class="auth-tab" onclick="switchTab('register')">Daftar</button>
+    </div>
+    <div class="auth-form active" id="form-login">
+      <div class="auth-group"><label>Username</label><input type="text" id="l-user" placeholder="heri"/></div>
+      <div class="auth-group"><label>Password</label><input type="password" id="l-pass" placeholder="123"/></div>
+      <div class="auth-msg" id="l-msg"></div>
+      <button class="auth-btn" onclick="doLogin()">Masuk Belajar 🚀</button>
+      <button class="guest-btn" onclick="enterAsGuest()">Lihat dulu tanpa login</button>
+    </div>
+    <div class="auth-form" id="form-register">
+      <div class="auth-group"><label>Nama Lengkap</label><input type="text" id="r-name" placeholder="Nama kamu"/></div>
+      <div class="auth-group"><label>Username</label><input type="text" id="r-user" placeholder="Username unik"/></div>
+      <div class="auth-group"><label>Password</label><input type="password" id="r-pass" placeholder="Buat password"/></div>
+      <div class="auth-msg" id="r-msg"></div>
+      <button class="auth-btn" onclick="doRegister()">Daftar Sekarang ✨</button>
+    </div>
+  </div>
+</div>
 
 <!-- QUIZ MODAL -->
 <div class="quiz-overlay" id="quizOverlay">
@@ -465,31 +518,17 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 </div><!-- end .main -->
 
 <script>
-const API = 'https://herisusanta.my.id/javalogin/api/';
-let quizState = {};
-
-/* =============================================
-   CEK SESSION — redirect ke login jika belum login
-   ============================================= */
-(function checkSession() {
-  const name = sessionStorage.getItem('belajarName');
-  if (!name) {
-    window.location.href = 'login.html';
-    return;
-  }
-  document.getElementById('sidebarName').textContent = name;
-  document.getElementById('greetText').textContent = 'Halo, ' + name + '! 👋';
-  showToast('Selamat datang, ' + name + '! 🎉');
-})();
+const API='https://herisusanta.my.id/javalogin/api/';
+let quizState={};
 
 /* =============================================
    HAMBURGER / SIDEBAR TOGGLE
    ============================================= */
-function toggleSidebar() {
+function toggleSidebar(){
   document.getElementById('sidebar').classList.toggle('open');
   document.getElementById('sidebarOverlay').classList.toggle('active');
 }
-function closeSidebar() {
+function closeSidebar(){
   document.getElementById('sidebar').classList.remove('open');
   document.getElementById('sidebarOverlay').classList.remove('active');
 }
@@ -497,7 +536,7 @@ function closeSidebar() {
 /* =============================================
    DATA
    ============================================= */
-const materiData = [
+const materiData=[
   {mapel:'matematika',icon:'🔢',bg:'#e8f0fe',color:'var(--blue)',title:'Persamaan Linear Satu Variabel',sub:'Matematika • Aljabar',tag:'Wajib'},
   {mapel:'matematika',icon:'📐',bg:'#e8f0fe',color:'var(--blue)',title:'Pythagoras dan Segitiga',sub:'Matematika • Geometri',tag:'Wajib'},
   {mapel:'matematika',icon:'📊',bg:'#e8f0fe',color:'var(--blue)',title:'Statistika Dasar',sub:'Matematika • Statistik',tag:'Wajib'},
@@ -515,7 +554,7 @@ const materiData = [
   {mapel:'ips',icon:'🏛️',bg:'#ffedd5',color:'var(--orange)',title:'Kerajaan Hindu-Buddha',sub:'IPS • Sejarah',tag:'Wajib'},
 ];
 
-const videoData = [
+const videoData=[
   {mapel:'Matematika',color:'var(--blue)',icon:'🔢',title:'Belajar Persamaan Linear dengan Mudah',durasi:'18 menit',yt:'https://youtu.be/JVANLCfV70w?si=wsnuwzSV11arsJ5G'},
   {mapel:'IPA',color:'var(--green)',icon:'🔬',title:'Sel Tumbuhan — Struktur dan Fungsinya',durasi:'12 menit',yt:'https://youtu.be/jXAz0cWIow8?si=EVDF2_zK3ZqrN0Ew'},
   {mapel:'Informatika',color:'var(--purple)',icon:'💻',title:'HTML CSS untuk Pemula — Full Tutorial',durasi:'2 jam',yt:'https://youtu.be/3U1AhjEf7DM?si=ea0Ua-kMsPHm5zEw'},
@@ -524,7 +563,7 @@ const videoData = [
   {mapel:'IPS',color:'var(--orange)',icon:'🗺️',title:'Kerajaan Majapahit — Sejarah Lengkap',durasi:'34 menit',yt:'https://youtu.be/2Z9hqVqPY_s?si=mvw4_r40X5uKt2Ny'},
 ];
 
-const kuisData = [
+const kuisData=[
   {icon:'🔢',title:'Kuis Matematika',sub:'Aljabar & Geometri',soal:5,waktu:'10 menit',color:'var(--blue)',questions:[
     {q:'Jika 2x + 4 = 10, maka nilai x adalah...',opts:['x = 2','x = 3','x = 4','x = 5'],ans:1,exp:'2x = 10 - 4 = 6, maka x = 3 ✅'},
     {q:'Luas persegi dengan sisi 7 cm adalah...',opts:['14 cm²','28 cm²','49 cm²','56 cm²'],ans:2,exp:'Luas = sisi × sisi = 7 × 7 = 49 cm² ✅'},
@@ -555,7 +594,7 @@ const kuisData = [
   ]},
 ];
 
-const progressData = [
+const progressData=[
   {icon:'🔢',name:'Matematika',pct:65,color:'var(--blue)',bg:'#e8f0fe'},
   {icon:'🔬',name:'IPA',pct:30,color:'var(--green)',bg:'#dcfce7'},
   {icon:'📝',name:'Bahasa Indonesia',pct:80,color:'var(--pink)',bg:'#fce7f3'},
@@ -567,38 +606,38 @@ const progressData = [
 /* =============================================
    YOUTUBE HELPERS
    ============================================= */
-function getYouTubeId(url) {
-  const regex = /(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-  const match = url ? url.match(regex) : null;
-  return match ? match[1] : null;
+function getYouTubeId(url){
+  const regex=/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+  const match=url?url.match(regex):null;
+  return match?match[1]:null;
 }
-function getThumbnailUrl(ytUrl) {
-  const id = getYouTubeId(ytUrl);
-  return id ? `https://img.youtube.com/vi/${id}/hqdefault.jpg` : '';
+function getThumbnailUrl(ytUrl){
+  const id=getYouTubeId(ytUrl);
+  return id?`https://img.youtube.com/vi/${id}/hqdefault.jpg`:'';
 }
-function getEmbedUrl(ytUrl) {
-  const id = getYouTubeId(ytUrl);
-  return id ? `https://www.youtube.com/embed/${id}?autoplay=1` : '';
+function getEmbedUrl(ytUrl){
+  const id=getYouTubeId(ytUrl);
+  return id?`https://www.youtube.com/embed/${id}?autoplay=1`:'';
 }
-function openVideoModal(ytUrl, title) {
-  document.getElementById('videoModalTitle').textContent = title;
-  document.getElementById('videoModalIframe').src = getEmbedUrl(ytUrl);
+function openVideoModal(ytUrl,title){
+  document.getElementById('videoModalTitle').textContent=title;
+  document.getElementById('videoModalIframe').src=getEmbedUrl(ytUrl);
   document.getElementById('videoModalOverlay').classList.add('active');
 }
-function closeVideoModal() {
+function closeVideoModal(){
   document.getElementById('videoModalOverlay').classList.remove('active');
-  document.getElementById('videoModalIframe').src = '';
+  document.getElementById('videoModalIframe').src='';
 }
-document.getElementById('videoModalOverlay').addEventListener('click', function(e) {
-  if (e.target === this) closeVideoModal();
+document.getElementById('videoModalOverlay').addEventListener('click',function(e){
+  if(e.target===this)closeVideoModal();
 });
 
 /* =============================================
    RENDER FUNCTIONS
    ============================================= */
-function renderMateri(filter = 'semua') {
-  const items = filter === 'semua' ? materiData : materiData.filter(m => m.mapel === filter);
-  document.getElementById('materiList').innerHTML = items.map(m => `
+function renderMateri(filter='semua'){
+  const items=filter==='semua'?materiData:materiData.filter(m=>m.mapel===filter);
+  document.getElementById('materiList').innerHTML=items.map(m=>`
     <div class="materi-item" onclick="showToast('Membuka: ${m.title}')">
       <div class="materi-icon" style="background:${m.bg};color:${m.color}">${m.icon}</div>
       <div class="materi-info"><div class="materi-title">${m.title}</div><div class="materi-sub">${m.sub}</div></div>
@@ -607,11 +646,11 @@ function renderMateri(filter = 'semua') {
     </div>`).join('');
 }
 
-function renderVideo() {
-  document.getElementById('videoGrid').innerHTML = videoData.map(v => {
-    const thumb = getThumbnailUrl(v.yt);
+function renderVideo(){
+  document.getElementById('videoGrid').innerHTML=videoData.map(v=>{
+    const thumb=getThumbnailUrl(v.yt);
     return `
-    <div class="video-card" onclick="openVideoModal('${v.yt}','${v.title.replace(/'/g, "\\'")}')">
+    <div class="video-card" onclick="openVideoModal('${v.yt}','${v.title.replace(/'/g,"\\'")}')">
       <div class="video-thumb">
         <img src="${thumb}" alt="${v.title}" onerror="this.style.display='none';this.parentElement.style.background='#1e293b'"/>
         <div class="play-overlay"><div class="play-btn">▶</div></div>
@@ -625,8 +664,8 @@ function renderVideo() {
   }).join('');
 }
 
-function renderKuis() {
-  document.getElementById('kuisGrid').innerHTML = kuisData.map((k, i) => `
+function renderKuis(){
+  document.getElementById('kuisGrid').innerHTML=kuisData.map((k,i)=>`
     <div class="kuis-card">
       <div class="kuis-icon">${k.icon}</div>
       <div class="kuis-title">${k.title}</div>
@@ -636,8 +675,8 @@ function renderKuis() {
     </div>`).join('');
 }
 
-function renderProgress() {
-  document.getElementById('progressSubjects').innerHTML = progressData.map(p => `
+function renderProgress(){
+  document.getElementById('progressSubjects').innerHTML=progressData.map(p=>`
     <div class="ps-row">
       <div class="ps-icon" style="background:${p.bg}">${p.icon}</div>
       <div class="ps-info"><div class="ps-name">${p.name}</div><div class="ps-bar"><div class="ps-fill" style="width:${p.pct}%;background:${p.color}"></div></div></div>
@@ -648,21 +687,21 @@ function renderProgress() {
 /* =============================================
    NAVIGASI HALAMAN
    ============================================= */
-function showPage(name, navEl) {
-  closeSidebar();
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById('page-' + name).classList.add('active');
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  if (navEl) navEl.classList.add('active');
-  if (name === 'materi') renderMateri();
-  if (name === 'video') renderVideo();
-  if (name === 'kuis') renderKuis();
-  if (name === 'progress') renderProgress();
-  window.scrollTo(0, 0);
+function showPage(name,navEl){
+  closeSidebar(); /* tutup sidebar di HP setelah pilih menu */
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(navEl)navEl.classList.add('active');
+  if(name==='materi')renderMateri();
+  if(name==='video')renderVideo();
+  if(name==='kuis')renderKuis();
+  if(name==='progress')renderProgress();
+  window.scrollTo(0,0);
 }
 
-function filterMapel(mapel, btn) {
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+function filterMapel(mapel,btn){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
   renderMateri(mapel);
 }
@@ -670,55 +709,55 @@ function filterMapel(mapel, btn) {
 /* =============================================
    KUIS LOGIC
    ============================================= */
-function startKuis(idx) {
-  quizState = { kuis: kuisData[idx], q: 0, score: 0, answered: false };
+function startKuis(idx){
+  quizState={kuis:kuisData[idx],q:0,score:0,answered:false};
   renderQuestion();
   document.getElementById('quizOverlay').classList.add('active');
 }
-function renderQuestion() {
-  const { kuis, q, score } = quizState;
-  const total = kuis.questions.length;
-  if (q >= total) { showResult(); return; }
-  const qObj = kuis.questions[q];
-  document.getElementById('quizBox').innerHTML = `
+function renderQuestion(){
+  const{kuis,q,score}=quizState;
+  const total=kuis.questions.length;
+  if(q>=total){showResult();return;}
+  const qObj=kuis.questions[q];
+  document.getElementById('quizBox').innerHTML=`
     <div class="quiz-header">
       <span class="quiz-progress-text">Soal ${q+1} dari ${total}</span>
       <span class="quiz-score-badge">Skor: ${score}</span>
     </div>
     <div class="quiz-q-bar"><div class="quiz-q-fill" style="width:${((q+1)/total)*100}%"></div></div>
     <div class="quiz-question">${qObj.q}</div>
-    <div class="quiz-options">${qObj.opts.map((opt, i) => `<button class="quiz-opt" onclick="answerQ(${i})">${opt}</button>`).join('')}</div>
+    <div class="quiz-options">${qObj.opts.map((opt,i)=>`<button class="quiz-opt" onclick="answerQ(${i})">${opt}</button>`).join('')}</div>
     <div class="quiz-feedback" id="qFeedback"></div>
-    <button class="quiz-next" id="qNext" onclick="nextQ()">${q+1 < total ? 'Soal Berikutnya →' : 'Lihat Hasil 🏆'}</button>`;
+    <button class="quiz-next" id="qNext" onclick="nextQ()">${q+1<total?'Soal Berikutnya →':'Lihat Hasil 🏆'}</button>`;
 }
-function answerQ(idx) {
-  if (quizState.answered) return;
-  quizState.answered = true;
-  const qObj = quizState.kuis.questions[quizState.q];
-  const opts = document.querySelectorAll('.quiz-opt');
-  opts.forEach(o => o.classList.add('disabled'));
-  const fb = document.getElementById('qFeedback');
-  if (idx === qObj.ans) {
-    opts[idx].classList.add('correct'); quizState.score++;
-    fb.textContent = '✅ Benar! ' + qObj.exp; fb.className = 'quiz-feedback correct show';
-  } else {
-    opts[idx].classList.add('wrong'); opts[qObj.ans].classList.add('correct');
-    fb.textContent = '❌ Salah! ' + qObj.exp; fb.className = 'quiz-feedback wrong show';
+function answerQ(idx){
+  if(quizState.answered)return;
+  quizState.answered=true;
+  const qObj=quizState.kuis.questions[quizState.q];
+  const opts=document.querySelectorAll('.quiz-opt');
+  opts.forEach(o=>o.classList.add('disabled'));
+  const fb=document.getElementById('qFeedback');
+  if(idx===qObj.ans){
+    opts[idx].classList.add('correct');quizState.score++;
+    fb.textContent='✅ Benar! '+qObj.exp;fb.className='quiz-feedback correct show';
+  }else{
+    opts[idx].classList.add('wrong');opts[qObj.ans].classList.add('correct');
+    fb.textContent='❌ Salah! '+qObj.exp;fb.className='quiz-feedback wrong show';
   }
   document.getElementById('qNext').classList.add('show');
 }
-function nextQ() { quizState.q++; quizState.answered = false; renderQuestion(); }
-function showResult() {
-  const { score, kuis } = quizState;
-  const total = kuis.questions.length;
-  const pct = Math.round((score / total) * 100);
-  const emoji = pct >= 80 ? '🏆' : pct >= 60 ? '👏' : '📚';
-  const msg = pct >= 80 ? 'Luar biasa! Kamu menguasai materi ini!' : pct >= 60 ? 'Bagus! Terus belajar ya!' : 'Yuk belajar lagi supaya lebih paham!';
-  const kidx = kuisData.indexOf(quizState.kuis);
-  document.getElementById('quizBox').innerHTML = `
+function nextQ(){quizState.q++;quizState.answered=false;renderQuestion();}
+function showResult(){
+  const{score,kuis}=quizState;
+  const total=kuis.questions.length;
+  const pct=Math.round((score/total)*100);
+  const emoji=pct>=80?'🏆':pct>=60?'👏':'📚';
+  const msg=pct>=80?'Luar biasa! Kamu menguasai materi ini!':pct>=60?'Bagus! Terus belajar ya!':'Yuk belajar lagi supaya lebih paham!';
+  const kidx=kuisData.indexOf(quizState.kuis);
+  document.getElementById('quizBox').innerHTML=`
     <div class="quiz-result">
       <div class="result-emoji">${emoji}</div>
-      <h3>${pct >= 80 ? 'Mantap!' : pct >= 60 ? 'Bagus!' : 'Semangat!'}</h3>
+      <h3>${pct>=80?'Mantap!':pct>=60?'Bagus!':'Semangat!'}</h3>
       <p>${msg}</p>
       <div class="result-score">${score}/${total}</div>
       <div style="color:var(--muted);font-size:.85rem">Nilai kamu: <strong style="color:var(--blue)">${pct}%</strong></div>
@@ -728,21 +767,73 @@ function showResult() {
 }
 
 /* =============================================
-   LOGOUT — hapus session, kembali ke login
+   AUTH LOGIC
    ============================================= */
-function doLogout() {
-  sessionStorage.removeItem('belajarName');
-  showToast('Sampai jumpa! 👋');
-  setTimeout(() => window.location.href = 'login.html', 1000);
+function switchTab(tab){
+  document.querySelectorAll('.auth-tab').forEach((t,i)=>t.classList.toggle('active',(i===0&&tab==='login')||(i===1&&tab==='register')));
+  document.getElementById('form-login').classList.toggle('active',tab==='login');
+  document.getElementById('form-register').classList.toggle('active',tab==='register');
+}
+function showMsg(id,msg,type){const el=document.getElementById(id);el.textContent=msg;el.className='auth-msg '+type;}
+
+async function doLogin(){
+  const user=document.getElementById('l-user').value.trim();
+  const pass=document.getElementById('l-pass').value.trim();
+  if(!user||!pass){showMsg('l-msg','Username dan password wajib diisi!','error');return;}
+  try{
+    const res=await fetch(API+'login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:user,password:pass})});
+    const data=await res.json();
+    if(data.status==='success'||data.success||res.ok){enterApp(user);return;}
+    showMsg('l-msg',data.message||'Username/password salah!','error');
+  }catch(e){
+    if((user==='heri'&&pass==='123')||(user==='admin'&&pass==='123')){enterApp(user);return;}
+    const saved=JSON.parse(localStorage.getItem('belajarUsers')||'{}');
+    if(saved[user]&&saved[user].pass===pass){enterApp(saved[user].name);return;}
+    showMsg('l-msg','Login gagal. Coba: heri / 123 atau daftar dulu','error');
+  }
 }
 
-/* =============================================
-   TOAST
-   ============================================= */
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2800);
+async function doRegister(){
+  const name=document.getElementById('r-name').value.trim();
+  const user=document.getElementById('r-user').value.trim();
+  const pass=document.getElementById('r-pass').value.trim();
+  if(!name||!user||!pass){showMsg('r-msg','Semua kolom wajib diisi!','error');return;}
+  try{
+    const res=await fetch(API+'register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:user,email:user+'@student.id',password:pass})});
+    const data=await res.json();
+    if(data.status==='success'||data.success||res.ok){
+      showMsg('r-msg','Daftar berhasil! Silakan login 🎉','success');
+      setTimeout(()=>switchTab('login'),1500);return;
+    }
+    showMsg('r-msg',data.message||'Gagal mendaftar.','error');
+  }catch(e){
+    const saved=JSON.parse(localStorage.getItem('belajarUsers')||'{}');
+    if(saved[user]){showMsg('r-msg','Username sudah digunakan!','error');return;}
+    saved[user]={pass,name};
+    localStorage.setItem('belajarUsers',JSON.stringify(saved));
+    showMsg('r-msg','Daftar berhasil (lokal)! Silakan login 🎉','success');
+    setTimeout(()=>switchTab('login'),1500);
+  }
+}
+
+function enterAsGuest(){enterApp('Tamu');}
+function enterApp(name){
+  document.getElementById('authOverlay').style.display='none';
+  document.getElementById('sidebarName').textContent=name;
+  document.getElementById('greetText').textContent='Halo, '+name+'! 👋';
+  showToast('Selamat datang, '+name+'! 🎉');
+}
+function doLogout(){
+  document.getElementById('authOverlay').style.display='flex';
+  document.getElementById('l-user').value='';
+  document.getElementById('l-pass').value='';
+  document.getElementById('l-msg').className='auth-msg';
+  showToast('Sampai jumpa! 👋');
+}
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
 }
 </script>
 </body>
